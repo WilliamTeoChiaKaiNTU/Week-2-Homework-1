@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import google.generativeai as palm
 import os
 import openai
+from textblob import TextBlob
 
 # Configure the API keys
 palm_api_key = "YOUR_PALM_API_KEY"
@@ -40,9 +41,17 @@ def singapore_joke():
     joke = "The only thing faster than Singapore's MRT during peak hours is the way we 'chope' seats with a tissue packet."
     return render_template("joke.html", joke=joke)
 
-@app.route("/prediction", methods=["GET", "POST"])
-def prediction():
-    return render_template("index.html")
+@app.route("/financial_portal", methods=["GET", "POST"])
+def financial_portal():
+    if request.method == "POST":
+        text = request.form.get("text")
+        if text:
+            # Analyze text with TextBlob
+            blob = TextBlob(text)
+            sentiment = blob.sentiment
+            return render_template("financial_portal.html", sentiment=sentiment)
+    return render_template("financial_portal.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
