@@ -49,8 +49,8 @@ def financial_portal():
             # Analyze text with TextBlob
             blob = TextBlob(text)
             sentiment = blob.sentiment
-            return render_template("financial_portal.html", sentiment=sentiment)
-    return render_template("financial_portal.html")
+            return render_template("index.html", sentiment=sentiment)
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
